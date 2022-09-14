@@ -1,0 +1,57 @@
+@import '../../styles/flexBox';
+@import '../../styles/responsive.scss';
+
+.cardContainer {
+    //min-width:300px;
+    width: 400px;
+    height: 200px;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px gray;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background: #f3f3f3;
+    @include flexBox(column);
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+
+    &:hover{
+        transform: translateY(-4px);
+        box-shadow: 0 8px 14px gray;
+    }
+
+    & > .titleAndUpdatedTime {
+        @include flexBox(row);
+        align-items: flex-end;
+        width: 100%;
+
+        & > .cardTitle {
+            font-size: 30px;
+            font-weight: 500;
+            color: #1f1f1f;
+        }
+
+        & > .updatedTime{
+            font-size: 14px;
+            color: #585858;
+        }
+    }
+
+    & > .cardDesc {
+        font-size: 12px;
+        color: #616161;
+        margin-top: 10px;
+        flex: 1;
+        //max-width: 90%;
+        //white-space: nowrap;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .avatarContainer {
+        @include flexBox(row);
+        position: relative;
+    }
+}

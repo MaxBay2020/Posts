@@ -1,0 +1,28 @@
+@import '../../styles/flexBox';
+
+.pageContainer{
+  @include flexBox(row);
+  gap: 10px;
+
+  & > button {
+    padding: 4px 8px;
+    border: 1px solid #747474;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: #fff;
+    & > svg {
+      color: #525252;
+    }
+  }
+
+  & > .deactivateLeft, & > .deactivateRight{
+    cursor: not-allowed;
+  }
+
+  & > .pageText{
+    font-size: 14px;
+    color: #525252;
+  }
+}

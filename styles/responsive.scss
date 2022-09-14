@@ -1,0 +1,18 @@
+@media (max-width: 1550px) {
+  .postsContainer{
+    max-width: 1200px !important;
+    padding: 10rem 10rem 0 10rem;
+  }
+}
+@media (max-width: 1050px) {
+  .postsContainer{
+    padding: 10rem 4rem 0 4rem;
+  }
+}
+
+@media (max-width: 916px) {
+  .cardContainer{
+    flex-grow: 1;
+  }
+}
+

@@ -1,0 +1,14 @@
+.authorNameContainer{
+  position: absolute;
+  top: -24px;
+  left: -50%;
+  width: max-content;
+  //height: 20px;
+  padding: 4px 6px;
+  background: #000;
+
+  & > .authorName {
+    color: #fff;
+    font-size: 12px;
+  }
+}
