@@ -4,13 +4,19 @@
 .postsContainerWrapper{
     width: 100%;
     height: 100%;
+    padding-top: 20rem;
     @include flexBox(column);
     justify-content: flex-start;
 
+    & > .loading {
+        margin-top: auto;
+    }
+
     & > .postsContainer {
         max-width: 1324px;
+        height: 500px;
         margin: 0 auto;
-        padding-top: 10rem;
+        //padding-top: 10rem;
         @include flexBox(row);
         gap: 4rem;
         justify-content: flex-start;

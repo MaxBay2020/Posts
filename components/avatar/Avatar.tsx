@@ -3,14 +3,18 @@ import AuthorNameBox from "../authorNameBox/AuthorNameBox";
 import {useState} from "react";
 import { getInitials} from "../../utils/utils";
 import Image from 'next/image'
+import Author from "../../types/Author";
 
-const Avatar = (props:
-                    { authorsNumber: string; avatar: string; createdAt: string; id: string; name: string; postId: string; updatedAt: string; index: number}) => {
-    const { authorsNumber, avatar, createdAt, id, name, postId, updatedAt, index } = props
+type AvatarProps = Author & {
+    offset: number
+}
+
+const Avatar = (props: AvatarProps ) => {
+    const { avatar, createdAt, id, name, postId, updatedAt, offset } = props
     const [showAuthorNameBox, setShowAuthorNameBox] = useState(false);
     const [avatarFailed, setAvatarFailed] = useState(false);
 
-    const leftOffset = (index * 25) + 'px'
+    const leftOffset = (offset * 25) + 'px'
 
     const handleDisplayAuthorInfo = () => {
         setShowAuthorNameBox(prev => !prev)

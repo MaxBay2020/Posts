@@ -1,23 +1,24 @@
 import styles from './pagination.module.scss'
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {gotoPage} from "../../features/pageSlice";
+import {Dispatch, SetStateAction} from "react";
 
+type PaginationProps = {
+    page: number,
+    totalPages: number,
+    setPage: Dispatch<SetStateAction<number>>
+}
 
-const Pagination = ({currentPage, totalPage}) => {
-    const dispatch = useDispatch()
+const Pagination = ({page, totalPages, setPage}: PaginationProps) => {
 
     const handlePrevPage = () => {
-        if(currentPage > 1){
-            dispatch(gotoPage(currentPage - 1))
+        if(page > 1){
+            setPage(page - 1)
         }
     }
 
     const handleNextPage = () => {
-        if(currentPage < totalPage){
-            dispatch(gotoPage(currentPage + 1))
+        if(page < totalPages){
+            setPage(page + 1)
         }
-
     }
 
     return (
@@ -28,7 +29,7 @@ const Pagination = ({currentPage, totalPage}) => {
                 </svg>
             </button>
 
-            <p className={styles.pageText}>{currentPage}/{totalPage}</p>
+            <p className={styles.pageText}>{page}/{totalPages}</p>
 
             <button onClick={()=>handleNextPage()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

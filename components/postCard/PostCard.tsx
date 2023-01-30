@@ -1,8 +1,9 @@
 import styles from './PostCard.module.scss'
 import {formatDate} from '../../utils/utils'
 import Avatar from "../avatar/Avatar";
+import Post from "../../types/Post";
 
-const PostCard = (props: { id: string; title: string; authors: string; comments: string; createdAt: string; description: string; updatedAt: string; }) => {
+const PostCard = (props: Post) => {
     const { id, title, authors, comments, createdAt, description, updatedAt } = props
 
     return (
@@ -15,7 +16,7 @@ const PostCard = (props: { id: string; title: string; authors: string; comments:
             <section className={styles.avatarContainer}>
                 {
                     authors.map((author, index) => (
-                        <Avatar index={index} key={author.id} {...author} authorsNumber={authors.length} />
+                        <Avatar offset={index} key={author.id} {...author} />
                     ))
                 }
             </section>
