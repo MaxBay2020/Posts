@@ -1,5 +1,4 @@
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
-import axios from 'axios'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import PostCard from "../../components/postCard/PostCard";
 import styles from './Posts.module.scss'
 import Pagination from "../../components/pagination/Pagination";
@@ -7,31 +6,17 @@ import Post from "../../types/Post";
 import useFetchPosts from "../../hooks/useFetchPost";
 import {useState} from "react";
 import {pageLimit} from "../../utils/consts";
-
-// const fetchPosts = async () => {
-//     try {
-//         const res = await axios.get('/api/post?page=3&limit=5')
-//         return res.data
-//     }catch (e){
-//         console.log(e)
-//     }
-// }
+import {useRouter} from "next/router";
+import api from "../../axios/api";
 
 const Posts = () => {
-    const [page, setPage] = useState<number>(1)
+    const router = useRouter()
+    const [page, setPage] = useState(parseInt(router.query.page as string) || 1)
     const [limit, setLimit] = useState<number>(pageLimit)
-    // const { data: posts, isLoading, isFetching } = useQuery<Post[]>({
-    //     queryKey: ['posts'],
-    //     queryFn: () => fetchPosts()
-    // })
+
 
     const { data, isLoading, isFetching} = useFetchPosts(['posts', page, limit], page, limit)
 
-    // const pageSelector = useAppSelector(state => state.page)
-    //
-    // const { currentPage, maximumPostsPerPage } = pageSelector
-
-    // console.log(currentPage)
     if(isLoading)
         return (
             <section className={styles.postsContainerWrapper}>
@@ -54,6 +39,7 @@ const Posts = () => {
             <section className={styles.pagination}>
                 <Pagination
                     page={page}
+                    limit={limit}
                     totalPages={data.totalPages}
                     setPage={setPage}
                 />
@@ -62,16 +48,32 @@ const Posts = () => {
     )
 }
 
-// export const getStaticProps = async () => {
-//     const queryClient = new QueryClient()
-//
-//     await queryClient.prefetchQuery<Post>(['posts'], () => fetchPosts())
-//
-//     return {
-//         props: {
-//             dehydratedState: dehydrate(queryClient)
-//         }
-//     }
-// }
+const getServerSideProps = async (context: { query: { page: string; limit: string }; }) => {
+    const { page: pageStr, limit: limitStr } = context.query
+    console.table({pageStr, limitStr})
+    if(!pageStr || !limitStr){
+        return {
+            props: {
+
+            }
+        }
+    }
+
+    const page = +pageStr
+    const limit = +limitStr
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery(
+        ["characters", page, limit],
+        async () => {
+            const res = await api.get(`/post/?page=${page}&limit=${limit}`)
+            return res.data
+        }
+    )
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    }
+}
 
 export default Posts

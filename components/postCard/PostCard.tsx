@@ -10,7 +10,7 @@ const PostCard = (props: Post) => {
         <article className={styles.cardContainer}>
             <section className={styles.titleAndUpdatedTime}>
                 <h1 className={styles.cardTitle}>{title}</h1>
-                <p className={styles.updatedTime}>{formatDate(createdAt)}</p>
+                <p data-testid='updatedTime' className={styles.updatedTime}>{formatDate(createdAt)}</p>
             </section>
 
             <section className={styles.avatarContainer}>
@@ -21,7 +21,7 @@ const PostCard = (props: Post) => {
                 }
             </section>
 
-            <p className={styles.cardDesc}>{description}</p>
+            <p data-testid='description' className={styles.cardDesc}>{description}</p>
         </article>
     )
 }

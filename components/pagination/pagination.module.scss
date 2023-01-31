@@ -12,8 +12,17 @@
     height: 30px;
     cursor: pointer;
     background: #fff;
+    transition: all 0.2s ease-in-out;
     & > svg {
       color: #525252;
+    }
+    &:hover {
+      svg {
+        color: #f3f3f3
+      }
+      & {
+        background: #1e1e1e;
+      }
     }
   }
 
